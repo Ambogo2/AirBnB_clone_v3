@@ -14,7 +14,7 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 
 # initialize CORS with the app instsnce
-CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.teardown_appcontext
 def teardown(exception):
