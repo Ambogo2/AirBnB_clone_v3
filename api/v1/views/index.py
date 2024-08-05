@@ -1,19 +1,20 @@
 #!/usr/bin/python3
-"""creates flask app app_views"""
+"""Returns a Json response"""
 
-from api.v1.views import app_views
 from flask import jsonify
+from api.v1.views import app_views
 from models import storage
 
-@app_views.route('/status')
-def api_status():
-    """returns status code"""
-    response = {'status': 'OK'}
-    return jsonify(response)
 
-@app_views.route('/status', methods =['GET'])
+@app_views.route('/status')
+def status_check():
+    """Returns status code"""
+    return jsonify({"status": "OK"})
+
+
+@app_views.route('/stats', methods=['GET'])
 def object_stats():
-    """Retrieves the number of object by type"""
+    """Retrieves the number of each object by type"""
     objects = {
         "amenities": storage.count('Amenity'),
         "cities": storage.count('City'),
@@ -23,4 +24,3 @@ def object_stats():
         "users": storage.count('User')
     }
     return jsonify(objects)
-    
